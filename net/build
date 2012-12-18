@@ -1,7 +1,0 @@
-#!/bin/bash
-if [ $1 == '1' ] ;
-then 
-  g++ -W serv.cpp -o serv
-else
- g++ -W cli.cpp -o cli
-fi
