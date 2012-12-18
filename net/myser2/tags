@@ -1,0 +1,80 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+GLOBAL_H	global.h	2;"	d
+MAXLEN	global.cpp	/^const int MAXLEN=128;$/;"	v
+MAX_PID_CNT	global.cpp	/^const int MAX_PID_CNT=3;$/;"	v
+NET_H	net.h	2;"	d
+addr	net.h	/^	void *addr;$/;"	m	struct:data_block_queue	access:public
+cmd	net.h	/^	uint32_t cmd;$/;"	m	struct:proto	access:public
+create_stack	net.h	/^static int create_stack(data_block_queue_t* pdbq, int len)$/;"	f	signature:(data_block_queue_t* pdbq, int len)
+data	net.h	/^	uint8_t   data[];$/;"	m	struct:proto	access:public
+data	net.h	/^	uint8_t data[];$/;"	m	struct:data_block	access:public
+data_block	net.h	/^typedef struct data_block{$/;"	s
+data_block::data	net.h	/^	uint8_t data[];$/;"	m	struct:data_block	access:public
+data_block::fd	net.h	/^	int fd;$/;"	m	struct:data_block	access:public
+data_block::len	net.h	/^	uint32_t len;$/;"	m	struct:data_block	access:public
+data_block::self	net.h	/^	struct data_block *self;$/;"	m	struct:data_block	typeref:struct:data_block::data_block	access:public
+data_block_queue	net.h	/^typedef struct data_block_queue{$/;"	s
+data_block_queue::addr	net.h	/^	void *addr;$/;"	m	struct:data_block_queue	access:public
+data_block_queue::head	net.h	/^	data_block_t *head,*tail;$/;"	m	struct:data_block_queue	access:public
+data_block_queue::maxlen	net.h	/^	uint32_t maxlen;$/;"	m	struct:data_block_queue	access:public
+data_block_queue::tail	net.h	/^	data_block_t *head,*tail;$/;"	m	struct:data_block_queue	access:public
+data_block_queue_t	net.h	/^}data_block_queue_t;$/;"	t	typeref:struct:data_block_queue
+data_block_t	net.h	/^}data_block_t;$/;"	t	typeref:struct:data_block
+do_accept	net.cpp	/^int do_accept(int listenfd)$/;"	f	signature:(int listenfd)
+do_add_event	net.cpp	/^int do_add_event(int fd)$/;"	f	signature:(int fd)
+do_add_event	net.h	/^int do_add_event(int fd);$/;"	p	signature:(int fd)
+einfo	global.cpp	/^epoll_info_t einfo;$/;"	v
+epoll_info	net.h	/^typedef struct epoll_info{$/;"	s
+epoll_info::epollfd	net.h	/^	int epollfd;$/;"	m	struct:epoll_info	access:public
+epoll_info::events	net.h	/^	struct epoll_event events[100];$/;"	m	struct:epoll_info	typeref:struct:epoll_info::epoll_event	access:public
+epoll_info::max_cnt	net.h	/^	int max_cnt;$/;"	m	struct:epoll_info	access:public
+epoll_info_t	net.h	/^}epoll_info_t;$/;"	t	typeref:struct:epoll_info
+epollfd	net.h	/^	int epollfd;$/;"	m	struct:epoll_info	access:public
+events	net.h	/^	struct epoll_event events[100];$/;"	m	struct:epoll_info	typeref:struct:epoll_info::epoll_event	access:public
+exit_net	net.cpp	/^int exit_net()$/;"	f	signature:()
+exit_net	net.h	/^int exit_net();$/;"	p	signature:()
+fd	net.h	/^	int fd;$/;"	m	struct:data_block	access:public
+fd	net.h	/^	int fd;$/;"	m	struct:fd_info	access:public
+fd_info	net.h	/^typedef struct fd_info{$/;"	s
+fd_info::fd	net.h	/^	int fd;$/;"	m	struct:fd_info	access:public
+fd_info_t	net.h	/^}__attribute__((packed)) fd_info_t;$/;"	t	typeref:struct:fd_info
+g_servers	global.cpp	/^server_info_t g_servers[MAX_PID_CNT];$/;"	v
+head	net.h	/^	data_block_t *head,*tail;$/;"	m	struct:data_block_queue	access:public
+init_net	net.cpp	/^int init_net(int count , char *ip, int port)$/;"	f	signature:(int count , char *ip, int port)
+init_net	net.h	/^int init_net(int count , char *ip, int port);$/;"	p	signature:(int count , char *ip, int port)
+init_proc	net.cpp	/^int init_proc()$/;"	f	signature:()
+init_proc	net.h	/^int init_proc();$/;"	p	signature:()
+len	net.h	/^	uint32_t len;$/;"	m	struct:data_block	access:public
+len	net.h	/^	uint32_t len;$/;"	m	struct:proto	access:public
+listenfd	global.cpp	/^int listenfd=0;$/;"	v
+main	main.cpp	/^int main(int argc,char** argv)$/;"	f	signature:(int argc,char** argv)
+max_cnt	net.h	/^	int max_cnt;$/;"	m	struct:epoll_info	access:public
+maxlen	net.h	/^	uint32_t maxlen;$/;"	m	struct:data_block_queue	access:public
+net_loop	net.cpp	/^int net_loop(int parent)$/;"	f	signature:(int parent)
+net_loop	net.h	/^int net_loop(int parent);$/;"	p	signature:(int parent)
+pop_stack	net.h	/^static int pop_stack(data_block_queue_t* pdbq, data_block_t* pdb)$/;"	f	signature:(data_block_queue_t* pdbq, data_block_t* pdb)
+proto	net.h	/^typedef struct proto{$/;"	s
+proto::cmd	net.h	/^	uint32_t cmd;$/;"	m	struct:proto	access:public
+proto::data	net.h	/^	uint8_t   data[];$/;"	m	struct:proto	access:public
+proto::len	net.h	/^	uint32_t len;$/;"	m	struct:proto	access:public
+proto_t	net.h	/^}__attribute__((packed)) proto_t;$/;"	t	typeref:struct:proto
+push_stack	net.h	/^static int push_stack(data_block_queue_t* pdbq, data_block_t* pdb)$/;"	f	signature:(data_block_queue_t* pdbq, data_block_t* pdb)
+read_from_parent	net.cpp	/^int read_from_parent(int fd ,bool & tag)$/;"	f	signature:(int fd ,bool & tag)
+readn	net.cpp	/^int readn(int fd, char *bp, size_t len)$/;"	f	signature:(int fd, char *bp, size_t len)
+recv_data	net.cpp	/^int recv_data(int fd, char* data, uint32_t len)$/;"	f	signature:(int fd, char* data, uint32_t len)
+recv_from_cli	net.cpp	/^int recv_from_cli(int fd, bool &tag)$/;"	f	signature:(int fd, bool &tag)
+recv_q	net.h	/^	data_block_queue_t* recv_q;$/;"	m	struct:server_info	access:public
+self	net.h	/^	struct data_block *self;$/;"	m	struct:data_block	typeref:struct:data_block::data_block	access:public
+server_info	net.h	/^typedef struct server_info{$/;"	s
+server_info::recv_q	net.h	/^	data_block_queue_t* recv_q;$/;"	m	struct:server_info	access:public
+server_info_t	net.h	/^}server_info_t;$/;"	t	typeref:struct:server_info
+sigchild_handler	net.cpp	/^void sigchild_handler(int sig, siginfo_t *ps ,void *p)$/;"	f	signature:(int sig, siginfo_t *ps ,void *p)
+sighup_handler	net.cpp	/^void sighup_handler(int sig)$/;"	f	signature:(int sig)
+sigpipe_handler	net.cpp	/^void sigpipe_handler(int sig)$/;"	f	signature:(int sig)
+sigterm_handler	net.cpp	/^void sigterm_handler(int sig)$/;"	f	signature:(int sig)
+tail	net.h	/^	data_block_t *head,*tail;$/;"	m	struct:data_block_queue	access:public

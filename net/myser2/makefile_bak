@@ -1,0 +1,14 @@
+SRC =  net.cpp
+CC= g++
+FLAG =  -Wall  -g  
+all:serv
+serv: main.o net.o
+	$(CC) $(FLAG) -o $@ main.o  net.o
+net.o: net.cpp  
+	$(CC) $(FLAGS) -c  -o net.o net.cpp
+main.o: main.cpp  
+	$(CC) $(FLAGS) -c  -o main.o main.cpp 
+.PHONY:clean
+clean:
+	@-rm -f *.o *.oxx *.po *.so *.d .dep.* 
+
