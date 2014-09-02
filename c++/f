@@ -1,0 +1,18 @@
+enqueue v
+    q = new Node
+    q->value = v
+    q->next =nil
+    do {
+        p = tail
+    }while(!CAS(p->next, nil, q))
+    CAS(tail, p, q)
+
+dequeue
+   p = head
+   head = p->next
+
+
+   do{
+        p = head 
+   }while(!CAS(head,p, p->next))
+   return p->value
