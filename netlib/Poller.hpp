@@ -6,7 +6,7 @@
 
 class EventLoop;
 class Channel;
-class Poller : noncopyable
+class Poller : public noncopyable
 {
  public:
   Poller(EventLoop* loop);
@@ -17,6 +17,9 @@ class Poller : noncopyable
   void updateChannel(Channel* channel);
   void removeChannel(Channel* channel);
 
+  static Poller* newDefaultPoller(EventLoop* loop){
+      return new Poller(loop);
+  }
  private:
 
   void fillActiveChannels(int numEvents,

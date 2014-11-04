@@ -3,10 +3,10 @@
 
 class noncopyable{
     public:
-    noncopyable()=delete;
+    noncopyable(){}
     noncopyable(const noncopyable&)=delete;
     void operator=(const noncopyable&)=delete;
-    ~noncopyable()=delete;
+    ~noncopyable(){}
 };
 
 #endif /*NONCOPYABLE_HPP*/

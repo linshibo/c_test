@@ -1,7 +1,9 @@
 #ifndef CHANNEL_HPP 
 #define CHANNEL_HPP
-#include <funtional>
+#include <functional>
+
 #include "Noncopyable.hpp"
+class EventLoop;
 
 class Channel : noncopyable
 {

@@ -4,20 +4,22 @@
 #include <memory>
 #include <vector>
 #include <functional>
+#include <mutex>
 #include "Noncopyable.hpp"
+class Poller;
 
 class EventLoop:public noncopyable{
     public:
         EventLoop ();
+    using Functor = std::function<void()>;
+        //typedef std:function<void()>  Functor
         virtual ~EventLoop ();
-        typedef std::function<void()> Functor;
-        EventLoop();
-        ~EventLoop(); 
         void quit();
+        void loop();
         int pollReturnTime() const { return pollReturnTime_; }
         void updateChannel(Channel* channel);
+        void runInLoop(Functor &&cb);
         void removeChannel(Channel* channel);
-
     private:
         void handleRead();  // waked up
 
@@ -32,9 +34,8 @@ class EventLoop:public noncopyable{
         int32_t  pollReturnTime_;
         std::shared_ptr<Poller> poller_;
         ChannelList activeChannels_;
-        Channel* currentActiveChannel_;
-        std::mutex_guard mutex_;
-        std::vector<Functor> pendingFunctors_; // @GuardedBy mutex_
+        //std::mutex mutex_;
+        std::vector<Functor > pendingFunctors_; // @GuardedBy mutex_
 };
 
 

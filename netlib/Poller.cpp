@@ -1,20 +1,19 @@
 #include "Poller.hpp"
-#include <sys/epoll.h>
 
-namespace
-{
+#include <glog/logging.h>
+#include <sys/epoll.h>
+#include "EventLoop.hpp"
+#include "Channel.hpp"
+
 const int kNew = -1;
 const int kAdded = 1;
 const int kDeleted = 2;
-}
 
-Poller(EventLoop* loop)
-  :epollfd_(::epoll_create1(EPOLL_CLOEXEC)),
-    events_(16)
+Poller::Poller(EventLoop* loop) :epollfd_(epoll_create1(EPOLL_CLOEXEC)), events_(16), ownerLoop_(loop)
 {
   if (epollfd_ < 0)
   {
-    LOG(FATAL) << "Poller::Poller";
+    LOG(INFO) << "Poller::Poller";
   }
 }
 
@@ -30,14 +29,14 @@ int Poller::poll(int timeoutMs, ChannelList* activeChannels)
                                static_cast<int>(events_.size()),
                                timeoutMs);
   int savedErrno = errno;
-  int now = time(NULL)
+  int now = time(NULL);
   if (numEvents > 0)
   {
-    LOG(TRACE) << numEvents << " events happended";
+    LOG(INFO) << numEvents << " events happended";
     fillActiveChannels(numEvents, activeChannels);
     events_.resize(events_.size()*2);
   } else if (numEvents == 0) {
-    LOG(TRACE) << " nothing happended";
+      LOG(INFO) << " nothing happended";
   } else {
     // error happens, log uncommon ones
     if (savedErrno != EINTR)
@@ -61,8 +60,7 @@ void Poller::fillActiveChannels(int numEvents, ChannelList* activeChannels) cons
 
 void Poller::updateChannel(Channel* channel)
 {
-  Poller::assertInLoopThread();
-  LOG(TRACE) << "fd = " << channel->fd() << " events = " << channel->events();
+  LOG(INFO) << "fd = " << channel->fd() << " events = " << channel->events();
   const int index = channel->index();
   if (index == kNew || index == kDeleted)
   {
@@ -70,13 +68,7 @@ void Poller::updateChannel(Channel* channel)
     int fd = channel->fd();
     if (index == kNew)
     {
-      assert(channels_.find(fd) == channels_.end());
       channels_[fd] = channel;
-    }
-    else // index == kDeleted
-    {
-      assert(channels_.find(fd) != channels_.end());
-      assert(channels_[fd] == channel);
     }
     channel->set_index(kAdded);
     update(EPOLL_CTL_ADD, channel);
@@ -86,9 +78,6 @@ void Poller::updateChannel(Channel* channel)
     // update existing one with EPOLL_CTL_MOD/DEL
     int fd = channel->fd();
     (void)fd;
-    assert(channels_.find(fd) != channels_.end());
-    assert(channels_[fd] == channel);
-    assert(index == kAdded);
     if (channel->isNoneEvent())
     {
       update(EPOLL_CTL_DEL, channel);
@@ -103,17 +92,13 @@ void Poller::updateChannel(Channel* channel)
 
 void Poller::removeChannel(Channel* channel)
 {
-  Poller::assertInLoopThread();
+    //Poller::assertInLoopThread();
   int fd = channel->fd();
-  LOG_TRACE << "fd = " << fd;
-  assert(channels_.find(fd) != channels_.end());
-  assert(channels_[fd] == channel);
-  assert(channel->isNoneEvent());
+  LOG(INFO) << "fd = " << fd;
   int index = channel->index();
-  assert(index == kAdded || index == kDeleted);
   size_t n = channels_.erase(fd);
   (void)n;
-  assert(n == 1);
+  //assert(n == 1);
 
   if (index == kAdded)
   {
@@ -131,14 +116,7 @@ void Poller::update(int operation, Channel* channel)
   int fd = channel->fd();
   if (::epoll_ctl(epollfd_, operation, fd, &event) < 0)
   {
-    if (operation == EPOLL_CTL_DEL)
-    {
-      LOG_SYSERR << "epoll_ctl op=" << operation << " fd=" << fd;
-    }
-    else
-    {
-      LOG_SYSFATAL << "epoll_ctl op=" << operation << " fd=" << fd;
-    }
+      LOG(ERROR)<< "epoll_ctl op=" << operation << " fd=" << fd;
   }
 }
 
